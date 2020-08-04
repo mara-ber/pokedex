@@ -1,15 +1,27 @@
 import React from 'react';
 import Logo from './Logo';
-import BestPokemon from './BestPocemon';
-import CaughtPokemon from './CaughtPokemon';
+import BestPockemonFetcher from './BestPocemon';
+import CaughtPockemon from './CaughtPockemon';
+import './App.css';
+
 
 
 function App() {
+
+  function logWhenClicked() {
+    console.log("just a log");
+  }
+
+  function logWhenTextClicked() {
+    console.log("second log");
+  }
+
   return (
-    <div>
-      <Logo appName="Pokedex" />
-      <BestPokemon abilities={['Anticipation', 'Adaptability', 'Run-Away']} />
-      <CaughtPokemon />
+    <div className="App">
+      <Logo appName="Pokedex" handleClick={logWhenClicked} />
+      <BestPockemonFetcher />
+      {/* <BestPockemon pockemon={NewPockemon} handleClick={logWhenTextClicked} /> */}
+      <CaughtPockemon />
     </div>
   );
 }
