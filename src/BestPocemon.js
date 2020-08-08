@@ -1,55 +1,70 @@
 import React, { useState, useEffect } from 'react';
+import LogoImage from './LogoImage.js';
+
+function BestPockemonFetcher(props) {
+    //console.log("best pockemon fetcer");
+
+    const [bestPockemon, setBestPockemon] = useState(null);
+
+    useEffect(() => {
+        //console.log("fetching data");
+        setBestPockemon(null);
+        fetch(`https://pokeapi.co/api/v2/pokemon/${props.pokemonId}/`)
+            .then(res => res.json())
+            .then(data => {
+                setBestPockemon(data);
+            })
+    }, [props.pokemonId]);
 
 
-function BestPockemon(props) {
-    // let a = props.pockemon.abilities.map(ability => ability.ability.name);
-    // console.log(a);
-    // console.log(props.pockemon[0].slot)
-    //const abilities = ['Anticipation', 'Adaptability', 'Run-Away'];
+    return bestPockemon ? (
+        <div>
+            <LogoImage pockemon={bestPockemon} />
+            <BestPockemon pockemon={bestPockemon} />
+        </div>
+
+    ) : (
+            "Loading..."
+        )
+}
+
+function BestPokemonSelector() {
+    const [pokemonId, setPokemonId] = useState(null);
+
+    function handleBulbasaurClick() {
+        setPokemonId(1);
+    }
+    function handleCharmanderClick() {
+        setPokemonId(4);
+    }
 
     return (
         <div>
-            <p onClick={props.handleClick}>just a pokemon</p>
+            {pokemonId ? <BestPockemonFetcher pokemonId={pokemonId} /> : null}
+            <button onClick={handleBulbasaurClick}>Fetch Bulbasaur</button>
+            <button onClick={handleCharmanderClick}>Fetch Charmander</button>
+
+        </div>
+    );
+}
+
+
+function BestPockemon(props) {
+
+    return (
+        <div>
+            <p onClick={props.handleClick}> {props.pockemon.name.toUpperCase()} </p>
+            <p> Abilities:  </p>
             {props.pockemon.abilities.map((ability, index) => {
                 return (
                     <ul key={index}>
                         <li>{ability.ability.name}</li>
                     </ul>);
             })}
+
         </div>
     )
 }
 
 
-function BestPockemonFetcher() {
-    console.log("best pockemon fetcer");
-
-    const [bestPockemon, setBestPockemon] = useState(null);
-
-
-    useEffect(() => {
-        console.log("fetching data");
-        fetch('https://pokeapi.co/api/v2/pokemon/1/')
-            .then(res => res.json())
-            .then(data => {
-                setBestPockemon(data);
-            })
-    }, []);
-
-    // if (!bestPockemon) {
-    //     return null;
-    // } else {
-    //     console.log("rendering best pockemon: ");
-    //     console.log(bestPockemon);
-    //     return <BestPockemon pockemon={bestPockemon} />
-
-    // }
-    return bestPockemon ? (
-        <BestPockemon pockemon={bestPockemon} />
-    ) : (
-            null
-        )
-}
-
-
-export default BestPockemonFetcher;
+export default BestPokemonSelector;

@@ -8,17 +8,17 @@ import './App.css';
 
 function App() {
 
-  function logWhenClicked() {
-    console.log("just a log");
-  }
+  // function logWhenClicked() {
+  //   console.log("just a log");
+  // }
 
-  function logWhenTextClicked() {
-    console.log("second log");
-  }
+  // function logWhenTextClicked() {
+  //   console.log("second log");
+  // }
 
   return (
     <div className="App">
-      <Logo appName="Pokedex" handleClick={logWhenClicked} />
+      <Logo appName="Pokedex" />
       <BestPockemonFetcher />
       {/* <BestPockemon pockemon={NewPockemon} handleClick={logWhenTextClicked} /> */}
       <CaughtPockemon />
